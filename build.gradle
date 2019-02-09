@@ -39,6 +39,6 @@ protobuf {
         os = 'osx'
     }
     protoc {
-        path = "tools/protoc/$os/bin/protoc.exe"
+        path = "tools/protoc/$os/bin/protoc"
     }
 }
