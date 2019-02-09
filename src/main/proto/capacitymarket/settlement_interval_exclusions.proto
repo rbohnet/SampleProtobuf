@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "SettlementIntervalExclusionsProto";
+option java_package = "ca.aeso.capacitymarket";
+
+package capacitymarket;
+
+message SettlementIntervalExclusions {
+
+}
+
+message AssetSettlementIntervalExclusions {
+
+}

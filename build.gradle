@@ -1,0 +1,44 @@
+apply plugin: 'java-library'
+apply plugin: 'com.google.protobuf'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+    }
+}
+
+group 'ca.aeso.capacitymarket'
+
+
+dependencies {
+    api 'com.google.protobuf:protobuf-java:3.7.0-rc1'
+    api 'com.google.protobuf:protobuf-java-util:3.7.0-rc1'
+
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+}
+
+protobuf {
+    def os = 'unknown'
+    if (org.gradle.internal.os.OperatingSystem.current().isWindows()){
+        os = 'win'
+    } else if (org.gradle.internal.os.OperatingSystem.current().isLinux()) {
+        os = 'linux'
+    } else if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+        os = 'osx'
+    }
+    protoc {
+        path = "tools/protoc/$os/bin/protoc.exe"
+    }
+}

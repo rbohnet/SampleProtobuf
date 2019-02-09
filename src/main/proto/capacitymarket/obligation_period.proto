@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "ObligationPeriodProto";
+option java_package = "ca.aeso.capacitymarket";
+
+import "aeso/type/date.proto";
+
+package capacitymarket;
+
+// 12 month period, Nov 1 - Oct 31 of following year 
+message ObligationPeriod {
+
+  // Identifies the Obligation period ie. 2020/2021
+  string identifier = 1;
+
+  // Start of the obligation period
+  aeso.type.Date begin = 2;
+
+  // Inclusive end date
+  aeso.type.Date end = 3;
+
+  // Auction dates
+  aeso.type.Date base_auction_date = 4;
+  aeso.type.Date rebalancing1_date = 5;
+  aeso.type.Date rebalancing2_date = 6;
+}
