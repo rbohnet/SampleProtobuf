@@ -2,9 +2,9 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_outer_classname = "EnergyAssetProto";
-option java_package = "ca.aeso.capacitymarket";
+option java_package = "ca.aeso.capacitymarket.asset";
 
-package capacitymarket;
+package capacitymarket.asset;
 
 message EnergyAsset {
 

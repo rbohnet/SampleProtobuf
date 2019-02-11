@@ -19,7 +19,7 @@ buildscript {
 }
 
 group 'ca.aeso.capacitymarket'
-
+version '0.0.1'
 
 dependencies {
     api 'com.google.protobuf:protobuf-java:3.7.0-rc1'

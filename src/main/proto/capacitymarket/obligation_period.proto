@@ -19,9 +19,4 @@ message ObligationPeriod {
 
   // Inclusive end date
   aeso.type.Date end = 3;
-
-  // Auction dates
-  aeso.type.Date base_auction_date = 4;
-  aeso.type.Date rebalancing1_date = 5;
-  aeso.type.Date rebalancing2_date = 6;
 }

@@ -4,7 +4,7 @@ option java_multiple_files = true;
 option java_outer_classname = "CapacityAssetProto";
 option java_package = "ca.aeso.capacitymarket";
 
-package capacitymarket;
+package capacitymarket.asset;
 
 message CapacityAsset {
 

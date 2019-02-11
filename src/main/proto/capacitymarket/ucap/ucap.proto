@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "UcapProto";
+option java_package = "ca.aeso.capacitymarket.ucap";
+
+package capacitymarket.ucap;
+
+message Ucap {
+
+    string capacity_asset_id = 1;
+    string capacity_asset_name = 2;
+
+    int32 lower = 3;
+    int32 value = 4;
+    int32 upper = 5;
+
+    enum CalculationMethod {
+        UNKNOWN = 0;
+        AVAILABLITY_FACTOR = 1;
+        CAPACITY_FACTOR = 2;
+    }
+    CalculationMethod method = 6; 
+}
