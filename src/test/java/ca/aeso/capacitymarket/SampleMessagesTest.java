@@ -19,7 +19,7 @@ public class SampleMessagesTest {
 
 
     @Test
-    public void shouldConvertToAndFromJson() throws Exception{
+    public void displaySampleUcapCalculationResults() throws Exception{
 
         YearMonthDay date_2019_11_01 = createDate(2019, 11, 01);
         YearMonthDay date_2020_10_31 = createDate(2020, 10, 31);
@@ -50,6 +50,11 @@ public class SampleMessagesTest {
 
         System.out.println("UcapCalculationResults:" + System.lineSeparator() +
                 jsonOutput);
+
+    }
+
+    @Test
+    public void displaySampleSettlementInvervalExclusions() throws Exception{
 
     }
 

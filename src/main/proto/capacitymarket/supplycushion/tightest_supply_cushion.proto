@@ -6,11 +6,13 @@ option java_package = "ca.aeso.capacitymarket.supplycushion";
 
 package capacitymarket.supplycushion;
 
+// TODO
 message TightestSupplyCushion {
 
 }
 
 
+// TODO
 message HistoricalTightestSupplyCushion {
 
 }

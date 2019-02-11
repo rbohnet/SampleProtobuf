@@ -16,7 +16,7 @@ message Ucap {
     int32 upper = 5;
 
     enum CalculationMethod {
-        UNKNOWN = 0;
+        NOT_SET = 0;
         AVAILABLITY_FACTOR = 1;
         CAPACITY_FACTOR = 2;
     }

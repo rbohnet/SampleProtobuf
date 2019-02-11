@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "EvaluationSetDetailProto";
+option java_package = "ca.aeso.capacitymarket.supplycushion";
+
+package capacitymarket.supplycushion;
+
+import "aeso/type/year_month_day.proto";
+
+message EvaluationSetDetail {
+
+    aeso.type.YearMonthDay on = 1;
+    int32 hour_ending = 2;
+    int32 supply_cushion_in_mw = 3;
+}

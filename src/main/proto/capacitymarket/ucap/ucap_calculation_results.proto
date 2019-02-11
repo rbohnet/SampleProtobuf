@@ -14,7 +14,7 @@ message UcapCalculationResults {
     capacitymarket.ObligationPeriod obligation_period = 1;
 
     enum AuctionType {
-        UNKNOWN = 0;
+        NOT_SET = 0;
         BASE_AUCTION = 1;
         FIRST_REBALANCING_AUCTION = 2;
         SECOND_REBALANCING_AUCTION = 3;
