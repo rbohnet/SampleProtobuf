@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "SettlementIntervalExclusionsProto";
+option java_package = "ca.aeso.capacitymarket.supplycushion";
+
+package capacitymarket.supplycushion;
+
+import "google/protobuf/timestamp.proto";
+
+message SettlementIntervalExclusions {
+
+    message Exclusion {
+        google.protobuf.Timestamp begin_time = 1;
+        google.protobuf.Timestamp end_time = 2;
+
+        enum ExclusionCode {
+            NOT_SET = 0;
+            MARKET_SUSPENSION = 1;
+            LIMITED_MARKET_OPERATIONS= 2;
+            ENERGY_EMERGENCY_ALERT = 3;
+            OTHER = 4;
+        }
+        ExclusionCode exclusion_code = 3;
+        string comments = 4;
+    }
+    repeated Exclusion exclusions = 1;
+}
