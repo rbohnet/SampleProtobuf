@@ -4,7 +4,7 @@ option java_multiple_files = true;
 option java_outer_classname = "ObligationPeriodProto";
 option java_package = "ca.aeso.capacitymarket.auction";
 
-import "aeso/type/date.proto";
+import "aeso/type/year_month_day.proto";
 import "capacitymarket/obligation_period.proto";
 
 package capacitymarket.auction;
@@ -14,9 +14,9 @@ message AuctionParameters{
     capacitymarket.ObligationPeriod period = 1;
 
     // Auction dates
-    aeso.type.Date base_auction_date = 2;
-    aeso.type.Date first_rebalancing_date = 3;
-    aeso.type.Date second_rebalancing_date = 4;
+    aeso.type.YearMonthDay base_auction_date = 2;
+    aeso.type.YearMonthDay first_rebalancing_date = 3;
+    aeso.type.YearMonthDay second_rebalancing_date = 4;
   }
   repeated ForObligationPeriod params_for_period= 1;
 }

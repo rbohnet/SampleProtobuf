@@ -12,7 +12,7 @@ message Ucap {
     string capacity_asset_name = 2;
 
     int32 lower = 3;
-    int32 value = 4;
+    int32 calculated_value= 4;
     int32 upper = 5;
 
     enum CalculationMethod {
@@ -20,5 +20,7 @@ message Ucap {
         AVAILABLITY_FACTOR = 1;
         CAPACITY_FACTOR = 2;
     }
-    CalculationMethod method = 6; 
+    CalculationMethod calculation_method = 6;
+    float performance_factor = 7;
+    int32 maximum_capacity_in_mw = 8;
 }

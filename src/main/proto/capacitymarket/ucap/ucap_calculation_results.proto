@@ -11,15 +11,16 @@ package capacitymarket.ucap;
 
 message UcapCalculationResults {
 
-    capacitymarket.ObligationPeriod period = 1;
+    capacitymarket.ObligationPeriod obligation_period = 1;
 
     enum AuctionType {
-        BASE_AUCTION = 0;
-        FIRST_REBALANCING_AUCTION = 1;
-        SECOND_REBALANCING_AUCTION = 2;
+        UNKNOWN = 0;
+        BASE_AUCTION = 1;
+        FIRST_REBALANCING_AUCTION = 2;
+        SECOND_REBALANCING_AUCTION = 3;
     }
    
     AuctionType auctionType = 2;
 
-    repeated capacitymarket.ucap.Ucap ucaps = 3;
+    repeated capacitymarket.ucap.Ucap ucap = 3;
 }
