@@ -23,4 +23,21 @@ message Ucap {
     CalculationMethod calculation_method = 6;
     float performance_factor = 7;
     int32 maximum_capacity_in_mw = 8;
+
+    ParticipateInAuction qualified_for_auction = 9;
+    string application_id = 10;
+}
+
+message ParticipateInAuction {
+
+    bool is_qualified = 1;  // defaults to true
+    enum DisqualificationReason {
+        NOT_SET = 0;
+        UCAP_LESS_THAN_1_MW = 1;
+        TRANSMISSION_ASSESSMENT = 2;
+        DELIST = 3;
+        OTHER = 4;
+    }
+    DisqualificationReason disqualified_reason = 2;
+    string comment = 3;
 }

@@ -7,12 +7,14 @@ import ca.aeso.capacitymarket.ucap.UcapCalculationResultsOrBuilder;
 import com.google.protobuf.Message;
 import org.junit.*;
 import ca.aeso.capacitymarket.ucap.Ucap;
+import ca.aeso.capacitymarket.ucap.ParticipateInAuction;
 import ca.aeso.capacitymarket.ucap.UcapCalculationResults;
 import ca.aeso.type.YearMonthDay;
 import com.google.protobuf.util.JsonFormat;
 
 import static ca.aeso.capacitymarket.ucap.Ucap.CalculationMethod.AVAILABLITY_FACTOR;
 import static ca.aeso.capacitymarket.ucap.Ucap.CalculationMethod.CAPACITY_FACTOR;
+import static ca.aeso.capacitymarket.ucap.ParticipateInAuction.DisqualificationReason.DELIST;
 import static ca.aeso.capacitymarket.ucap.UcapCalculationResults.AuctionType.BASE_AUCTION;
 
 public class SampleMessagesTest {
@@ -89,6 +91,17 @@ public class SampleMessagesTest {
     private static Ucap createUcap(String assetId, String assetName, int lower, int upper, int value,
                                    Ucap.CalculationMethod calcMethod, float performanceFactor, int maxCapacity) {
 
+        ParticipateInAuction qualified = ParticipateInAuction.newBuilder()
+                .setIsQualified(true)
+                .build();
+
+        if (calcMethod == Ucap.CalculationMethod.CAPACITY_FACTOR) {
+                qualified = ParticipateInAuction.newBuilder()
+                .setIsQualified(false)
+                .setDisqualifiedReason(DELIST)
+                .setComment("Some comments re. delisting of asset")
+                .build();
+        }
 
         return Ucap.newBuilder()
                 .setCapacityAssetId(assetId)
@@ -99,6 +112,7 @@ public class SampleMessagesTest {
                 .setCalculationMethod(calcMethod)
                 .setPerformanceFactor(performanceFactor)
                 .setMaximumCapacityInMw(maxCapacity)
+                .setQualifiedForAuction(qualified)
                 .build();
     }
 

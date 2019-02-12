@@ -1,4 +1,4 @@
-Protocol buffers (protobuf) data interchange format
+AESO Protocol buffers (protobuf) for data exchange format
 ===================================================
 
 Protocol Buffers (a.k.a., protobuf) are language-neutral, platform-neutral, extensible 
