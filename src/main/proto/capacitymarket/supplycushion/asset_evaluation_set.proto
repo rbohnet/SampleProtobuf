@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "AssetEvaluationSetProto";
+option java_package = "ca.aeso.capacitymarket.supplycushion";
+
+import "aeso/type/year_month_day.proto";
+import "capacitymarket/obligation_period.proto";
+import "capacitymarket/audit.proto";
+
+package capacitymarket.supplycushion;
+
+message AssetEvaluationSet {
+  capacitymarket.ObligationPeriod obligationPeriod = 1;
+  capacitymarket.Audit audit = 2;
+  repeated AssetEvaluationSetDetail details = 3;
+}
+
+message AssetEvaluationSetDetail {
+  string asset_short_name = 1;
+  aeso.type.YearMonthDay supply_cushion_date = 2;
+  int32 hour_ending = 3;
+  int32 supply_cushion_in_mw = 4;
+  float hourly_performance_factor = 5;
+  bool included = 6;
+
+  enum ReasonForExclusion {
+    NOT_SET = 0;
+    NOT_ENERGIZED = 1;
+    FORCE_MAJURE = 2;
+    MOTHBALL = 3;
+    ECONOMIC_DELIST = 4;
+    UNDER_COMMISSIONING = 5;
+    BC_OUT = 6;
+    SK_OUT = 7;
+    MATL_OUT = 8;
+    LONG_LEAD_TYPE_2 = 9;
+    OTHERS = 10;
+  }
+  ReasonForExclusion reason_for_exclusion = 7;
+  string comment = 8;
+}

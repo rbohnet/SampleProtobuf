@@ -4,15 +4,20 @@ option java_multiple_files = true;
 option java_outer_classname = "TightestSupplyCushionProto";
 option java_package = "ca.aeso.capacitymarket.supplycushion";
 
+import "aeso/type/year_month_day.proto";
+import "capacitymarket/obligation_period.proto";
+import "capacitymarket/audit.proto";
+
 package capacitymarket.supplycushion;
 
-// TODO
 message TightestSupplyCushion {
-
+  capacitymarket.ObligationPeriod obligationPeriod = 1;
+  capacitymarket.Audit audit = 2;
+  repeated TightestSupplyCushionDetail details = 3;
 }
 
-
-// TODO
-message HistoricalTightestSupplyCushion {
-
+message TightestSupplyCushionDetail {
+  aeso.type.YearMonthDay supply_cushion_date = 1;
+  int32 hour_ending = 2;
+  int32 supply_cushion_in_mw = 3;
 }

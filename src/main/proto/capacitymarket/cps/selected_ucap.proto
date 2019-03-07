@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "SelectedUcapProto";
+option java_package = "ca.aeso.capacitymarket.cps";
+
+import "aeso/type/year_month_day.proto";
+
+package capacitymarket.cps;
+
+message SelectedUcap {
+
+  aeso.type.YearMonthDay begin_date = 1;
+  aeso.type.YearMonthDay end_date = 2;
+
+  enum AuctionType {
+    NOT_SET = 0;
+    BASE_AUCTION = 1;
+    FIRST_REBALANCING_AUCTION = 2;
+    SECOND_REBALANCING_AUCTION = 3;
+  }
+  AuctionType auction_type = 3;
+
+  repeated SelectedUcapDetail details = 4;
+}
+
+message SelectedUcapDetail {
+  string asset_short_name = 1;
+  int32 selected_ucap = 2;
+}

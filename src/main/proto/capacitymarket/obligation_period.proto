@@ -11,12 +11,20 @@ package capacitymarket;
 // 12 month period, Nov 1 - Oct 31 of following year 
 message ObligationPeriod {
 
-  // Identifies the Obligation period ie. 2020/2021
-  string identifier = 1;
-
   // Start of the obligation period
-  aeso.type.YearMonthDay begin = 2;
+  aeso.type.YearMonthDay begin = 1;
 
   // Inclusive end date
-  aeso.type.YearMonthDay end = 3;
+  aeso.type.YearMonthDay end = 2;
+
+  aeso.type.YearMonthDay historical_begin = 3;
+  aeso.type.YearMonthDay historical_end = 4;
+
+  enum AuctionType {
+    NOT_SET = 0;
+    BASE_AUCTION = 1;
+    FIRST_REBALANCING_AUCTION = 2;
+    SECOND_REBALANCING_AUCTION = 3;
+  }
+  AuctionType auction_type = 5;
 }

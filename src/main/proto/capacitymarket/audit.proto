@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "AuditProto";
+option java_package = "ca.aeso.capacitymarket";
+
+import "google/protobuf/timestamp.proto";
+
+package capacitymarket;
+
+message Audit {
+
+  string approved_by = 1;
+
+  google.protobuf.Timestamp approved_on = 2;
+
+  google.protobuf.Timestamp exported_on = 3;
+}

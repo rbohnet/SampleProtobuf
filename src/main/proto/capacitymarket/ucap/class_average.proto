@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "ClassAverageProto";
+option java_package = "ca.aeso.capacitymarket.ucap";
+
+import "capacitymarket/obligation_period.proto";
+import "capacitymarket/audit.proto";
+
+package capacitymarket.ucap;
+
+message ClassAverage {
+
+  capacitymarket.ObligationPeriod obligationPeriod = 1;
+  capacitymarket.Audit audit = 2;
+  repeated ClassAverageDetail details = 3;
+}
+
+message ClassAverageDetail {
+  string class_name = 1;
+  float performance_factor = 2;
+  string reason_if_not_calculated = 3;
+}

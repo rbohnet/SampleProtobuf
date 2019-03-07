@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "UcapResultsProto";
+option java_package = "ca.aeso.capacitymarket.ucap";
+
+import "capacitymarket/obligation_period.proto";
+import "capacitymarket/audit.proto";
+import "capacitymarket/ucap/ucap_result_detail.proto";
+
+package capacitymarket.ucap;
+
+message UcapResults {
+
+    capacitymarket.ObligationPeriod obligation_period = 1;
+    capacitymarket.Audit audit = 2;
+    repeated capacitymarket.ucap.UcapResultDetail details = 3;
+}

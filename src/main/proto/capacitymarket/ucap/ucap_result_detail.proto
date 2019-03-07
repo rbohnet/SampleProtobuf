@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_outer_classname = "UcapResultDetailProto";
+option java_package = "ca.aeso.capacitymarket.ucap";
+
+package capacitymarket.ucap;
+
+message UcapResultDetail {
+
+    string asset_short_name = 1;
+
+    int32 ucap_point = 2;
+    int32 ucap_lower = 3;
+    int32 ucap_upper = 4;
+
+    float performance_factor = 5;
+    int32 maximum_capacity_in_mw = 6;
+
+    enum UcapType {
+        EXISTING = 0;
+        NEW = 1;
+        INCREMENTAL = 2;
+        REFURBISHED = 3;
+    }
+    UcapType ucap_type = 7;
+
+    enum CalculationMethod {
+        NO_CALCULATION = 0;
+        AVAILABLITY_FACTOR = 1;
+        CAPACITY_FACTOR = 2;
+        AF_LINEAR_REGRESSION = 3;
+    }
+    CalculationMethod calculation_method = 8;
+
+    enum BlendingMethod {
+        UNKNOWN = 0;
+        CLASS_AVERAGE = 1;
+        ENGINEERING_STUDY = 2;
+        PRODUCTION_OR_LOAD_ESTIMATE = 3;
+        JURISDICTIONAL_REVIEW = 4;
+    }
+    BlendingMethod blending_method = 9;
+
+    enum AssetType {
+        SOURCE = 0;
+        SINK = 1;
+        IMPORT = 2;
+    }
+    AssetType asset_type = 10;
+
+    /* TODO: complete this
+    enum AssetFuelType {
+    }
+    AssetFuelType asset_fuel_type = 11;
+
+    enum AssetTechnologyType {
+    }
+    AssetTechnologyType asset_technology_type = 12;
+    */
+
+    bool disqualified = 13;
+    enum DisqualificationReason {
+        NOT_SET = 0;
+        UCAP_LESS_THAN_1_MW = 1;
+        TRANSMISSION_ASSESSMENT = 2;
+        DELIST = 3;
+        OTHER = 4;
+    }
+    DisqualificationReason disqualified_reason = 14;
+    string disqualified_comment = 15;
+
+    bool aggregated_asset = 16;
+    string aggregated_id = 17; // required if aggregated or is child of aggregate
+    string qualification_application_id = 18;
+
+    string asset_region = 19;
+
+    int32 selected_ucap = 20;
+    int32 ucap_point_calculated = 21;
+    int32 ucap_lower_calculated = 22;
+    int32 ucap_upper_calculated = 23;
+    int32 ucap_point_override = 24;
+    int32 ucap_lower_override = 25;
+    int32 ucap_upper_override = 26;
+    int32 gross_ucap_point = 27;
+    int32 gross_ucap_point_override = 28;
+    int32 gross_ucap_lower_override = 29;
+    int32 gross_ucap_upper_override = 30;
+
+    float slope = 31;
+    float slope_override = 32;
+    float intercept = 33;
+    float intercept_override = 34;
+
+    string calculation_comments = 35;
+}

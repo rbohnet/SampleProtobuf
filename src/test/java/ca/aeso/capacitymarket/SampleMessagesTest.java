@@ -1,21 +1,18 @@
 
 package ca.aeso.capacitymarket;
 
+import static ca.aeso.capacitymarket.ucap.UcapResultDetail.*;
 import static org.junit.Assert.*;
 
-import ca.aeso.capacitymarket.ucap.UcapCalculationResultsOrBuilder;
+import ca.aeso.capacitymarket.ucap.*;
 import com.google.protobuf.Message;
+import com.google.protobuf.Timestamp;
 import org.junit.*;
-import ca.aeso.capacitymarket.ucap.Ucap;
-import ca.aeso.capacitymarket.ucap.ParticipateInAuction;
-import ca.aeso.capacitymarket.ucap.UcapCalculationResults;
 import ca.aeso.type.YearMonthDay;
 import com.google.protobuf.util.JsonFormat;
 
-import static ca.aeso.capacitymarket.ucap.Ucap.CalculationMethod.AVAILABLITY_FACTOR;
-import static ca.aeso.capacitymarket.ucap.Ucap.CalculationMethod.CAPACITY_FACTOR;
-import static ca.aeso.capacitymarket.ucap.ParticipateInAuction.DisqualificationReason.DELIST;
-import static ca.aeso.capacitymarket.ucap.UcapCalculationResults.AuctionType.BASE_AUCTION;
+import static ca.aeso.capacitymarket.ucap.UcapResultDetail.CalculationMethod.AVAILABLITY_FACTOR;
+import static ca.aeso.capacitymarket.ucap.UcapResultDetail.CalculationMethod.CAPACITY_FACTOR;
 
 public class SampleMessagesTest {
 
@@ -25,19 +22,29 @@ public class SampleMessagesTest {
 
         YearMonthDay date_2019_11_01 = createDate(2019, 11, 01);
         YearMonthDay date_2020_10_31 = createDate(2020, 10, 31);
+        long millis = System.currentTimeMillis();
+        Timestamp now = Timestamp.newBuilder()
+            .setSeconds(millis / 1000)
+            .build();
 
         ObligationPeriod period = ObligationPeriod.newBuilder()
-                .setIdentifier("2019 / 2020")
                 .setBegin(date_2019_11_01)
                 .setEnd(date_2020_10_31)
+                .setHistoricalBegin(createDate(2013, 11, 01))
+                .setHistoricalEnd(createDate(2018, 10, 31))
+                .setAuctionType(ObligationPeriod.AuctionType.BASE_AUCTION)
                 .build();
 
-        UcapCalculationResults ucapResults = UcapCalculationResults.newBuilder()
+        UcapResults ucapResults = UcapResults.newBuilder()
                 .setObligationPeriod(period)
-                .setAuctionType(BASE_AUCTION)
-                .addUcap(createUcap("522", "BIG", 97, 103, 99, AVAILABLITY_FACTOR,
+                .setAudit(Audit.newBuilder()
+                        .setApprovedBy("Staff Member")
+                        .setApprovedOn(now)
+                        .setExportedOn(now)
+                        .build())
+                .addDetails(createUcapResultDetail("BIG", 97, 103, 99, AVAILABLITY_FACTOR,
                         0.88f, 120))
-                .addUcap(createUcap("101", "ABC", 50, 80, 61, CAPACITY_FACTOR,
+                .addDetails(createUcapResultDetail( "ABC", 50, 80, 61, CAPACITY_FACTOR,
                         0.99f, 100))
                 .build();
 
@@ -45,27 +52,21 @@ public class SampleMessagesTest {
         String jsonOutput = JsonFormat.printer().print(ucapResults);
 
         // Rehydrate from json
-        UcapCalculationResultsOrBuilder builder = UcapCalculationResults.newBuilder();
+        UcapResultsOrBuilder builder = UcapResults.newBuilder();
         JsonFormat.parser().merge(jsonOutput, (Message.Builder) builder);
-        UcapCalculationResults rehydratedUcapResults = ((UcapCalculationResults.Builder) builder).build();
-        assertSameUcapCalculateResults(ucapResults, rehydratedUcapResults);
+        UcapResults rehydratedUcapResults = ((UcapResults.Builder) builder).build();
+        assertSameUcapResults(ucapResults, rehydratedUcapResults);
 
-        System.out.println("UcapCalculationResults:" + System.lineSeparator() +
+        System.out.println("UcapResults:" + System.lineSeparator() +
                 jsonOutput);
 
     }
 
-    @Test
-    public void displaySampleSettlementInvervalExclusions() throws Exception{
-
-    }
-
-    private void assertSameUcapCalculateResults(UcapCalculationResults expected, UcapCalculationResults actual) {
+    private void assertSameUcapResults(UcapResults expected, UcapResults actual) {
 
         assertEquals(expected.getObligationPeriod().getBegin(), actual.getObligationPeriod().getBegin());
         assertEquals(expected.getObligationPeriod().getEnd(), actual.getObligationPeriod().getEnd());
-        assertEquals(expected.getAuctionTypeValue(), actual.getAuctionTypeValue());
-        assertEquals(expected.getUcapCount(), actual.getUcapCount());
+        assertEquals(expected.getDetailsCount(), actual.getDetailsCount());
         // TODO: validate rest
 
     }
@@ -80,39 +81,17 @@ public class SampleMessagesTest {
                 .build();
     }
 
-    private static ObligationPeriod createObligationPeriod(String identifer, YearMonthDay begin, YearMonthDay end) {
-        return ObligationPeriod.newBuilder()
-                .setIdentifier(identifer)
-                .setBegin(begin)
-                .setEnd(end)
-                .build();
-    }
+    private static UcapResultDetail createUcapResultDetail(String assetName, int lower, int upper, int value,
+                                   CalculationMethod calcMethod, float performanceFactor, int maxCapacity) {
 
-    private static Ucap createUcap(String assetId, String assetName, int lower, int upper, int value,
-                                   Ucap.CalculationMethod calcMethod, float performanceFactor, int maxCapacity) {
-
-        ParticipateInAuction qualified = ParticipateInAuction.newBuilder()
-                .setIsQualified(true)
-                .build();
-
-        if (calcMethod == Ucap.CalculationMethod.CAPACITY_FACTOR) {
-                qualified = ParticipateInAuction.newBuilder()
-                .setIsQualified(false)
-                .setDisqualifiedReason(DELIST)
-                .setComment("Some comments re. delisting of asset")
-                .build();
-        }
-
-        return Ucap.newBuilder()
-                .setCapacityAssetId(assetId)
-                .setCapacityAssetName(assetName)
-                .setLower(lower)
-                .setUpper(upper)
-                .setCalculatedValue(value)
+        return newBuilder()
+                .setAssetShortName(assetName)
+                .setUcapLower(lower)
+                .setUcapUpper(upper)
+                .setUcapPoint(value)
                 .setCalculationMethod(calcMethod)
                 .setPerformanceFactor(performanceFactor)
                 .setMaximumCapacityInMw(maxCapacity)
-                .setQualifiedForAuction(qualified)
                 .build();
     }
 
