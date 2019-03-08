@@ -59,7 +59,7 @@ message UcapResultDetail {
     AssetTechnologyType asset_technology_type = 12;
     */
 
-    bool disqualified = 13;
+    bool disqualified_for_auction = 13;
     enum DisqualificationReason {
         NOT_SET = 0;
         UCAP_LESS_THAN_1_MW = 1;
@@ -70,7 +70,7 @@ message UcapResultDetail {
     DisqualificationReason disqualified_reason = 14;
     string disqualified_comment = 15;
 
-    bool aggregated_asset = 16;
+    bool is_aggregated_asset = 16;
     string aggregated_id = 17; // required if aggregated or is child of aggregate
     string qualification_application_id = 18;
 
